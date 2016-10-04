@@ -798,3 +798,12 @@ textarea {
 .shot-action .like-btn:hover {
   background: #fafafa;
 }
+
+
+/*
+ * Misc
+*/
+
+.loading {
+  text-align: center;
+}
