@@ -5,7 +5,7 @@ export default function ShotPreview({ shot }) {
   return (
     <div className="col-4 px-12">
       <div className="shot-preview">
-        <Link to="/shot/1">
+        <Link to={`/shot/${shot.id}`}>
           <div className="teaser">
             <img src={shot.images.normal} alt={shot.title} />
           </div>

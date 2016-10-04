@@ -32,7 +32,7 @@ export default class PopularShots extends React.Component {
   render() {
 
     return (
-      <div id="main" className="container clearfix">
+      <div>
       {
         this.state.loading ? <Loading /> : <ShotList shots={this.state.shots} />
       }

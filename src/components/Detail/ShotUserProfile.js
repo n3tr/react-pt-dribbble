@@ -1,19 +1,18 @@
 import React from 'react'
 
-export default () => {
+export default ({ user }) => {
   return (
     <div className="user-profile p-12 mb-24">
       <div className="user-avatar py-24">
         <img
         alt=""
-        src="https://d13yacurqjgara.cloudfront.net/users/346880/avatars/normal/photo_%284%29.JPG?1399954442"/>
+        src={user.avatar_url}/>
       </div>
       <div className="user-info">
         <h4 className="title">
-          Cat Audi
+          {user.name}
         </h4>
-        <p className="bio">
-          Pixels + food. Product Designer @ Facebook.
+        <p className="bio" dangerouslySetInnerHTML={{__html: user.bio}}>
         </p>
       </div>
     </div>

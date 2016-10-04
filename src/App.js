@@ -13,8 +13,10 @@ class App extends Component {
         <div className="app">
           <Header />
 
-          <Match pattern="/" exactly component={PopularShots} />
-          <Match pattern="/shot/:id" component={ShotPage} />
+          <div id="main" className="container clearfix">
+            <Match pattern="/" exactly component={PopularShots} />
+            <Match pattern="/shot/:id" component={ShotPage} />
+          </div>
         </div>
       </BrowserRouter>
 
