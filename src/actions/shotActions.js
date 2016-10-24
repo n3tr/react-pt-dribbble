@@ -49,3 +49,10 @@ export function fetchDetail(shotId) {
     })
   }
 }
+
+export function favoriteShot(id) {
+  return {
+    type: 'FAVORITE_SHOT',
+    shotId: id
+  }
+}

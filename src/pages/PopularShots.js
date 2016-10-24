@@ -2,38 +2,51 @@ import React from 'react'
 import ShotList from '../components/ShotList'
 import Loading from '../components/Loading'
 
-import { fetchPopular } from '../actions/shotActions'
+import { fetchPopular, favoriteShot } from '../actions/shotActions'
 import { connect } from 'react-redux'
 
 class PopularShots extends React.Component {
 
-
   componentDidMount() {
-    this.props.dispatch(fetchPopular())
+    if (this.props.shots.length == 0){
+      this.props.fetch()
+    }
+
   }
 
   render() {
-
+    console.log(this.props);
     return (
       <div>
       {
         this.props.fetching ? <Loading /> : null
       }
-      <ShotList shots={this.props.shots} />
+      <ShotList
+        shots={this.props.shots}
+        favoriteIds={this.props.favoriteIds}
+        onClickFavorite={this.props.onClickFavorite}
+      />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  const { popular, shotById } = state
+const mapStateToProps = ({ popular, shotById, favorite }) => {
   const popularShots = popular.shots.map((id)=>{
     return shotById[id]
   })
   return {
     shots: popularShots,
-    fetching: popular.fetching
+    fetching: popular.fetching,
+    favoriteIds: favorite
   }
 }
 
-export default connect(mapStateToProps)(PopularShots)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetch: () => dispatch(fetchPopular()),
+    onClickFavorite: (id) =>  dispatch(favoriteShot(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopularShots)

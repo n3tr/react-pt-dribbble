@@ -5,7 +5,7 @@ import ShotAction from '../components/Detail/ShotAction'
 
 import Loading from '../components/Loading'
 
-import { fetchDetail } from '../actions/shotActions'
+import { fetchDetail, favoriteShot } from '../actions/shotActions'
 
 import { connect } from 'react-redux'
 
@@ -29,7 +29,7 @@ class ShotDetail extends React.Component {
 
         <div className="col-4 px-12">
           <ShotUserProfile user={shot.user} />
-          <ShotAction />
+          <ShotAction onClickFavorite={this.props.favorite} liked={this.props.liked} />
         </div>
       </div>
     )
@@ -39,14 +39,17 @@ class ShotDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const shot = state.shotById[ownProps.params.id]
+  const liked = state.favorite.indexOf(parseInt(ownProps.params.id)) !== -1
   return {
-    shot
+    shot,
+    liked
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchDetail: () => dispatch(fetchDetail(ownProps.params.id))
+    fetchDetail: () => dispatch(fetchDetail(ownProps.params.id)),
+    favorite: () =>  dispatch(favoriteShot(ownProps.params.id))
   }
 }
 
