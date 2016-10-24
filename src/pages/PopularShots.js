@@ -1,32 +1,15 @@
 import React from 'react'
 import ShotList from '../components/ShotList'
 import Loading from '../components/Loading'
-import fetchPopularShot from '../api/fetchPopularShot'
 
-export default class PopularShots extends React.Component {
+import { fetchPopular } from '../actions/shotActions'
+import { connect } from 'react-redux'
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      shots: [],
-      loading: false
-    }
-  }
+class PopularShots extends React.Component {
+
 
   componentDidMount() {
-    this.fetchShots()
-  }
-
-  fetchShots() {
-    this.setState({
-      loading: true
-    })
-    fetchPopularShot().then((shots) => {
-      this.setState({
-        shots,
-        loading: false
-      })
-    })
+    this.props.dispatch(fetchPopular())
   }
 
   render() {
@@ -34,9 +17,23 @@ export default class PopularShots extends React.Component {
     return (
       <div>
       {
-        this.state.loading ? <Loading /> : <ShotList shots={this.state.shots} />
+        this.props.fetching ? <Loading /> : null
       }
+      <ShotList shots={this.props.shots} />
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const { popular, shotById } = state
+  const popularShots = popular.shots.map((id)=>{
+    return shotById[id]
+  })
+  return {
+    shots: popularShots,
+    fetching: popular.fetching
+  }
+}
+
+export default connect(mapStateToProps)(PopularShots)

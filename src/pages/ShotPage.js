@@ -2,31 +2,23 @@ import React from 'react'
 import ShotInfo from '../components/Detail/ShotInfo'
 import ShotUserProfile from '../components/Detail/ShotUserProfile'
 import ShotAction from '../components/Detail/ShotAction'
-import fetchShotDetail from '../api/fetchShotDetail'
+
 import Loading from '../components/Loading'
 
-export default class ShotDetail extends React.Component {
+import { fetchDetail } from '../actions/shotActions'
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      shot: null,
-      loading: true,
-    }
-  }
+import { connect } from 'react-redux'
+
+
+class ShotDetail extends React.Component {
 
   componentDidMount() {
-    fetchShotDetail(this.props.params.id).then( (shot) => {
-      this.setState({
-        shot,
-        loading: false
-      })
-    })
+    this.props.fetchDetail()
   }
 
   render() {
-    const { loading, shot } = this.state
-    if (loading) {
+    const { shot } = this.props
+    if (!shot) {
       return <Loading />
     }
     return (
@@ -43,3 +35,19 @@ export default class ShotDetail extends React.Component {
     )
   }
 }
+
+
+const mapStateToProps = (state, ownProps) => {
+  const shot = state.shotById[ownProps.params.id]
+  return {
+    shot
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    fetchDetail: () => dispatch(fetchDetail(ownProps.params.id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShotDetail)

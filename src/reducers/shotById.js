@@ -9,6 +9,22 @@ function shotById(state = initialState, action) {
       } , {})
       return Object.assign({}, state, idShotMap)
       break;
+
+
+    // REQUEST_SHOT_DETAIL
+    case 'REQUEST_SHOT_DETAIL':
+    const { shotId } = action
+    return Object.assign(
+      {},
+      state,
+      {
+        [shotId]: Object.assign({}, state[shotId] || {}, { fetching: true } )
+      }
+    )
+    // RECEIVE_SHOT_DETAIL
+    case 'RECEIVE_SHOT_DETAIL':
+      return Object.assign({}, state, { [action.shot.id]: action.shot })
+
     default:
       return state
   }
