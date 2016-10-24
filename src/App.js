@@ -7,10 +7,11 @@ import ShotPage from './pages/ShotPage'
 
 import { BrowserRouter, Match } from 'react-router'
 
+
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/react-pt-dribbble">
         <div className="app">
           <Header />
 
