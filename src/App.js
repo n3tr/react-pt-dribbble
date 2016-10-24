@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Header from './components/Header'
 import PopularShots from './pages/PopularShots'
+import FavoritePage from './pages/FavoritePage'
 import ShotPage from './pages/ShotPage'
 
 import { BrowserRouter, Match } from 'react-router'
@@ -15,6 +16,7 @@ class App extends Component {
 
           <div id="main" className="container clearfix">
             <Match pattern="/" exactly component={PopularShots} />
+            <Match pattern="/favorite" component={FavoritePage} />
             <Match pattern="/shot/:id" component={ShotPage} />
           </div>
         </div>

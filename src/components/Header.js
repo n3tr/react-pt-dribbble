@@ -11,8 +11,11 @@ class Header extends React.Component {
             <Link to="/">Deeep</Link>
           </div>
           <ul className="lsn fr p-0 m-0 main-nav">
-            <li className="nav-item-like"><a href="#" className="fr">
-            <i className="like-count p-2 px-8 mr-8">{this.props.favoriteCount}</i>Like</a></li>
+            <li className="nav-item-like">
+              <Link to="/favorite" className="fr">
+                <i className="like-count p-2 px-8 mr-8">{this.props.favoriteCount}</i>Like
+              </Link>
+            </li>
           </ul>
         </div>
       </header>
